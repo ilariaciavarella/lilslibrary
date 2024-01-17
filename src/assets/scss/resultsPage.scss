@@ -1,0 +1,54 @@
+@use "global";
+@use "var";
+@use "components";
+
+body {
+	background-color: var.$desertSand;
+}
+
+.pseudo-nav {
+	background-color: var.$desertSand;
+	min-height: 60px;
+	box-shadow: 0 2px 12px 4px rgba(0, 0, 0, 0.25);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	span {
+		font-style: italic;
+		font-size: 1.5rem;
+	}
+
+	a {
+		color: var.$blackBean;
+		&:visited {
+			color: var.$blackBean;
+		}
+	}
+}
+
+main {
+	margin: 48px auto;
+	padding: 0 2rem;
+}
+
+.collection {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 40px;
+}
+
+/*MEDIA QUERIES*/
+
+@media only screen and (min-width: 721px) {
+	main {
+		margin: 64px auto;
+		padding: 0 8rem;
+	}
+
+	.collection {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 60px;
+	}
+}

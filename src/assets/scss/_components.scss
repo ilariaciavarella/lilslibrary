@@ -1,0 +1,115 @@
+@use "var";
+@use "global";
+
+/* NAV ---------------------------------------------- */
+.pseudo-nav {
+	background-color: var.$desertSand;
+	min-height: 60px;
+	box-shadow: 0 2px 12px 4px rgba(0, 0, 0, 0.25);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	span {
+		font-style: italic;
+		font-size: 1.5rem;
+	}
+
+	a {
+		color: var.$blackBean;
+		&:visited {
+			color: var.$blackBean;
+		}
+	}
+}
+
+/* BOOKS ---------------------------------------------- */
+//Random background
+$colours: url("../imgs/books/book-atomicTangerine.svg"),
+	url("../imgs/books/book-blackBean.svg"),
+	url("../imgs/books/book-bittersweetShimmer.svg");
+$repeat: 6;
+@for $i from 1 through $repeat {
+	.book:nth-child(#{length($colours)}n + #{$i}) {
+		background-image: nth($colours, random(length($colours)));
+	}
+}
+
+//Actual style
+.book {
+	min-height: fit-content;
+	max-width: 500px;
+	aspect-ratio: 1 / 1;
+	background-size: contain;
+	background-repeat: no-repeat;
+	filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
+	padding: 1.2rem 2.4rem 2.4rem 1.2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	color: var.$linen;
+
+	.title {
+		margin-bottom: 4px;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+}
+
+/* DETAILS CARD ----------------------------------------------*/
+.details-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 10;
+	background-color: transparentize(var.$blackBean, 0.2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+}
+
+.details-box {
+	width: 100%;
+	padding: 2.4rem;
+	border-radius: 12px;
+	box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2.4rem;
+	backdrop-filter: blur(16px) brightness(70%);
+
+	figure {
+		border: 8px solid var.$linen;
+		border-radius: 4px;
+		flex-grow: 1;
+		img {
+			width: 100%;
+		}
+	}
+}
+
+.info {
+	flex-grow: 1;
+	color: var.$linen;
+	min-width: 50%;
+	p {
+		margin-top: 16px;
+	}
+}
+
+.details-bg {
+	max-height: 100vh;
+	overflow: hidden;
+}
+
+@media only screen and (min-width: 1068px) {
+	.details-box {
+		max-width: 60%;
+	}
+}

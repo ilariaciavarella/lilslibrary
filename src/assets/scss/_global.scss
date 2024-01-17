@@ -1,0 +1,41 @@
+@use "var";
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap");
+
+/* Reset */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	font-family: "EB Garamond", serif;
+	font-size: calc(13px + 0.390625vw);
+	color: var.$blackBean;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1 {
+	font-size: 3rem;
+	font-weight: normal;
+	font-style: italic;
+	line-height: 3rem;
+	margin-bottom: 8px;
+	margin-left: -4px;
+}
+
+h2 {
+	font-size: 1.25rem;
+	margin-bottom: 2rem;
+}
+
+h3 {
+	font-size: 1.2rem;
+}
+
+.author {
+	font-style: italic;
+}
