@@ -1,8 +1,7 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -12,30 +11,46 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 
 
 const config = {
-    entry: './src/assets/js/index.js',
+    entry: {
+        index: './src/assets/js/index.js',
+        results: './src/assets/js/results.js',
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
+        filename: '[name].js'
     },
     devServer: {
         static: path.resolve(__dirname, 'dist'),
-        open: true,
+        open: {
+            app: {
+                name: 'firefox',
+            }
+        },
         host: 'localhost',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            filename: 'index.html',
+            chunks: ['index']
+        }),
+
+        new HtmlWebpackPlugin({
+            template: './src/results/index.html',
+            filename: 'results.html',
+            chunks: ['results'],
         }),
 
         new MiniCssExtractPlugin(),
+        new LodashModuleReplacementPlugin()
 
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/i,
-                loader: 'babel-loader',
+                use: 'babel-loader',
+                exclude: /node_modules/
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -46,8 +61,6 @@ const config = {
                 type: 'asset',
             },
 
-            // Add your rules for custom modules here
-            // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
 };
