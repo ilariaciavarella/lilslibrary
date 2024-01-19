@@ -14,7 +14,7 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 const config = {
     entry: {
         index: './src/assets/js/index.js',
-        results: './src/assets/js/results.js',
+        results: './src/assets/js/results.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -33,13 +33,15 @@ const config = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
-            chunks: ['index']
+            chunks: ['index'],
+            favicon: "./src/assets/imgs/icons/favicon.ico"
         }),
 
         new HtmlWebpackPlugin({
             template: './src/results/index.html',
             filename: 'results.html',
             chunks: ['results'],
+            favicon: "./src/assets/imgs/icons/favicon.ico"
         }),
 
         new MiniCssExtractPlugin(),
