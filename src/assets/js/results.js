@@ -4,26 +4,49 @@ import _ from 'lodash';
 
 import '../scss/results.scss';
 
-// SCRIPTS
-function getBooks(fetchUrl) {
-    console.log(fetchUrl);
-    axios.get(fetchUrl)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            // data.works.forEach(work => {
-            //     const book = bookTemplate.content.cloneNode('true').children[0];
-            //     const title = book.querySelector('.title');
-            //     const author = book.querySelector('.author');
+// GRAB STORAGE DATA
+const chosenGenre = localStorage.getItem('chosenGenre');
+const fetchUrl = localStorage.getItem('fetchUrl');
+
+// Grab page elements
+const headerOne = document.querySelector('h1');
+const headerTwo = document.querySelector('h2');
+const bookCollection = document.querySelector('.collection');
+const bookTemplate = document.querySelector('[data-book-template]');
 
 
-            //     title.textContent = work.title;
+// Display genre name as header
+let genre = document.createElement('span');
+genre.textContent = ` “${chosenGenre}”`;
+genre.classList.add('non-italic');
+headerOne.appendChild(genre);
 
-            //     for (authorNames of work.authors) {
-            //         author.textContent += authorNames.name
-            //     }
+// Display always different sentences in h2
 
-            //     bookCollection.append(book);
-            // })
-        })
+
+//Display books
+function worksToBooks(work) {
+    const book = bookTemplate.content.cloneNode('true').children[0];
+    const title = book.querySelector('.title');
+    const authors = book.querySelector('.authors');
+
+    title.textContent = work.title;
+
+    _.forEach(work.authors, (author, index) => {
+        if (index + 1 == work.authors.length) {
+            authors.textContent += author.name;
+        } else {
+            authors.textContent += author.name + ', ';
+        }
+    })
+
+    bookCollection.append(book);
 }
+
+axios.get(fetchUrl)
+    .then(res => {
+        let bookData = res.data;
+        console.log(bookData);
+        _.forEach(bookData.works, worksToBooks)
+    });
+

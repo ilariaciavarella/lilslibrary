@@ -28,7 +28,7 @@
 $colours: url("../imgs/books/book-atomicTangerine.svg"),
 	url("../imgs/books/book-blackBean.svg"),
 	url("../imgs/books/book-bittersweetShimmer.svg");
-$repeat: 6;
+$repeat: 30;
 @for $i from 1 through $repeat {
 	.book:nth-child(#{length($colours)}n + #{$i}) {
 		background-image: nth($colours, random(length($colours)));
@@ -51,11 +51,22 @@ $repeat: 6;
 	color: var.$linen;
 
 	.title {
-		margin-bottom: 4px;
+		margin-bottom: 8px;
 		display: -webkit-box;
-		-webkit-line-clamp: 4;
+		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+	}
+
+	.authors {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	&:hover {
+		cursor: pointer;
 	}
 }
 

@@ -6,27 +6,6 @@ body {
 	background-color: var.$desertSand;
 }
 
-.pseudo-nav {
-	background-color: var.$desertSand;
-	min-height: 60px;
-	box-shadow: 0 2px 12px 4px rgba(0, 0, 0, 0.25);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	span {
-		font-style: italic;
-		font-size: 1.5rem;
-	}
-
-	a {
-		color: var.$blackBean;
-		&:visited {
-			color: var.$blackBean;
-		}
-	}
-}
-
 main {
 	margin: 48px auto;
 	padding: 0 2rem;
@@ -36,6 +15,11 @@ main {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	gap: 40px;
+}
+
+/* Styles to add */
+.non-italic {
+	font-style: normal;
 }
 
 /*MEDIA QUERIES*/

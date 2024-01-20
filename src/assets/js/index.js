@@ -7,7 +7,6 @@ document.querySelector('img').setAttribute('src', ArrowIcon);
 // SCRIPT
 const submitBtn = document.querySelector('#submit-btn');
 const searchInput = document.querySelector('#search-input');
-const bookCollection = document.querySelector('.collection');
 
 function getUrl(userInput) {
     if (userInput.match(/^[a-zA-Z\s]*$/gi)) {
@@ -20,6 +19,7 @@ function getUrl(userInput) {
 
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    localStorage.setItem("chosenGenre", getUrl(searchInput.value));
-    window.open('results.html', '_self');
+    localStorage.setItem("chosenGenre", searchInput.value.toLowerCase());
+    localStorage.setItem("fetchUrl", getUrl(searchInput.value));
+    window.location.href = 'results.html';
 })
