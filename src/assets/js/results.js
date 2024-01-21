@@ -26,78 +26,84 @@ headerOne.appendChild(genre);
 
 
 //Display books
-function worksToBooks(work) {
+function worksToBooks({ key, title, authors, cover_id }) {
     const book = bookTemplate.content.cloneNode('true').children[0];
-    const title = book.querySelector('.title');
-    const authors = book.querySelector('.authors');
+    const titleElement = book.querySelector('.title');
+    const authorsElement = book.querySelector('.authors');
 
-    title.textContent = work.title;
+    titleElement.textContent = title;
 
-    _.forEach(work.authors, (author, index) => {
-        if (index + 1 == work.authors.length) {
-            authors.textContent += author.name;
+    _.forEach(authors, (author, index) => {
+        if (index + 1 == authors.length) {
+            authorsElement.textContent += author.name;
         } else {
-            authors.textContent += author.name + ', ';
+            authorsElement.textContent += author.name + ', ';
         }
     })
 
-    book.id = `${work.key}`;
+    book.setAttribute('data-key', `${key}`);
+    book.setAttribute('data-cover-id', `${cover_id}`);
 
     bookCollection.append(book);
 }
 
 // DISPLAY DETAILS
-function displayDetails() {
-    const allBooks = bookCollection.querySelectorAll('.book');
-    //console.log(allBooks);
-    _.forEach(allBooks, book => {
-        book.addEventListener('click', () => {
-            console.log(book.id);
-            axios.get(`https://openlibrary.org${book.id}.json`)
-                .then(res => {
-                    console.log(res.data);
-                    createDetails(res.data);
-                })
-        })
-    })
-};
-
 // Create details element
-function createDetails(work) {
+function createDetails({ title, authors, description }, coverId) {
     const detailsBox = detailsTemplate.content.cloneNode('true').children[0];
-    const cover = detailsBox.querySelector('img');
-    const title = detailsBox.querySelector('h3');
-    const authors = detailsBox.querySelector('.author');
-    const plot = detailsBox.querySelector('p');
+    const coverElement = detailsBox.querySelector('img');
+    const titleElement = detailsBox.querySelector('h3');
+    const authorsElement = detailsBox.querySelector('.author');
+    const plotElement = detailsBox.querySelector('p');
 
-    title.textContent = work.title;
+    titleElement.textContent = title;
 
-
-    _.forEach(work.authors, (author, index) => {
-        if (index + 1 == work.authors.length) {
+    _.forEach(authors, (author, index) => {
+        if (index + 1 == authors.length) {
             axios.get(`https://openlibrary.org${author.author.key}.json`).then(res => {
-                authors.textContent += res.data.name;
+                authorsElement.textContent += res.data.name;
             })
         } else {
             axios.get(`https://openlibrary.org${author.author.key}.json`).then(res => {
-                authors.textContent += res.data.name + ', ';
+                authorsElement.textContent += res.data.name + ', ';
             })
         }
     })
 
-    //cover.setAttribute('src', `https://covers.openlibrary.org/b/oclc/${work.covers[0]}-L.jpg`);
+    coverElement.setAttribute('src', `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`);
 
-    plot.textContent = work.description;
+    plotElement.textContent = description || '[Sorry! We have no details about this book]';
 
     document.querySelector('body').appendChild(detailsBox);
+    document.querySelector('body').classList.toggle('details-bg');
 
+    // avoid grid resizing when hiding overflow
+    const documentWidth = document.documentElement.clientWidth;
+    const scrollbarWidth = Math.abs(window.innerWidth - documentWidth);
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
 }
 
+// Display them
+function displayDetails() {
+    const allBooks = bookCollection.querySelectorAll('.book');
+    _.forEach(allBooks, book => {
+        book.addEventListener('click', () => {
+            console.log(book.getAttribute('data-key'));
+            axios.get(`https://openlibrary.org${book.getAttribute('data-key')}.json`)
+                .then(res => {
+                    console.log(res.data);
+                    createDetails(res.data, book.getAttribute('data-cover-id'));
+                });
+        })
+    })
+};
+
+
+// Make request
 axios.get(fetchUrl)
     .then(res => {
         let bookData = res.data;
         console.log(bookData);
         _.forEach(bookData.works, worksToBooks);
-
         displayDetails();
     });

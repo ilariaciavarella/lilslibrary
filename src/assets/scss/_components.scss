@@ -72,7 +72,7 @@ $repeat: 30;
 
 /* DETAILS CARD ----------------------------------------------*/
 .details-overlay {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
@@ -94,11 +94,15 @@ $repeat: 30;
 	flex-wrap: wrap;
 	gap: 2.4rem;
 	backdrop-filter: blur(16px) brightness(70%);
+	max-height: 100%;
+	overflow: auto;
 
 	figure {
 		border: 8px solid var.$linen;
 		border-radius: 4px;
 		flex-grow: 1;
+		max-width: 50%;
+		padding-bottom: -4px;
 		img {
 			width: 100%;
 		}
@@ -112,11 +116,6 @@ $repeat: 30;
 	p {
 		margin-top: 16px;
 	}
-}
-
-.details-bg {
-	max-height: 100vh;
-	overflow: hidden;
 }
 
 @media only screen and (min-width: 1068px) {

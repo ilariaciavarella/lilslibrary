@@ -4,6 +4,7 @@
 
 body {
 	background-color: var.$desertSand;
+	scroll-behavior: smooth;
 }
 
 main {
@@ -20,6 +21,11 @@ main {
 /* Styles to add */
 .non-italic {
 	font-style: normal;
+}
+
+.details-bg {
+	max-height: 100vh;
+	overflow: hidden;
 }
 
 /*MEDIA QUERIES*/
