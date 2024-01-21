@@ -10,10 +10,10 @@ const searchInput = document.querySelector('#search-input');
 
 function getUrl(userInput) {
     if (userInput.match(/^[a-zA-Z\s]*$/gi)) {
-        return `${process.env.OPEN_LIBRARY}${userInput.toLowerCase().split(' ').join('_')}.json`;
+        return `${process.env.OPEN_LIBRARY}${userInput.toLowerCase().split(' ').join('_')}.json?limit=60`;
     } else {
         userInput = userInput.replace(/[_\d\W]/gi, "");
-        return `${process.env.OPEN_LIBRARY}${userInput.toLowerCase().split(' ').join('_')}.json`;
+        return `${process.env.OPEN_LIBRARY}${userInput.toLowerCase().split(' ').join('_')}.json?limit=60`;
     }
 }
 
