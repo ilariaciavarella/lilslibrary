@@ -15,6 +15,16 @@ body {
 	justify-content: center;
 }
 
+footer {
+	a {
+		color: var.$atomicTangerine;
+
+		&:visited {
+			color: lighten(var.$atomicTangerine, 5%);
+		}
+	}
+}
+
 .box {
 	margin: auto;
 	padding: 40px 24px;
@@ -64,21 +74,6 @@ body {
 
 		&:active {
 			background-color: lighten(var.$atomicTangerine, 7%);
-		}
-	}
-}
-
-.credits {
-	margin: 24px auto;
-	font-size: 0.85rem;
-	font-style: italic;
-	text-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-
-	a {
-		color: var.$atomicTangerine;
-
-		&:visited {
-			color: lighten(var.$atomicTangerine, 5%);
 		}
 	}
 }

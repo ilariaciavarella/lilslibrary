@@ -12,6 +12,16 @@ main {
 	padding: 0 2rem;
 }
 
+footer {
+	a {
+		color: var.$bittersweetShimmer;
+
+		&:visited {
+			color: lighten(var.$bittersweetShimmer, 5%);
+		}
+	}
+}
+
 .collection {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
