@@ -74,7 +74,7 @@ function createDetails({ title, authors, description }, coverId) {
 
     coverElement.setAttribute('src', `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`);
 
-    plotElement.textContent = description || '[Sorry! We have no details about this book]';
+    plotElement.textContent = typeof description == 'string' ? description : typeof description == 'object' ? description.value : '[Sorry! We have no details about this book]';
 
     createCloseBtn(detailsBox);
 
@@ -102,7 +102,6 @@ function displayDetails() {
     const allBooks = bookCollection.querySelectorAll('.book');
     _.forEach(allBooks, book => {
         book.addEventListener('click', () => {
-            console.log(book.getAttribute('data-key'));
             axios.get(`https://openlibrary.org${book.getAttribute('data-key')}.json`)
                 .then(res => {
                     console.log(res.data);
