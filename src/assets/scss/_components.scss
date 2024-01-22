@@ -97,6 +97,24 @@ $repeat: 30;
 	max-height: 100%;
 	overflow: auto;
 
+	/* Scroll bar */
+	scrollbar-width: thin;
+	scrollbar-color: transparentize(var.$desertSand, 0.5)
+		transparentize(var.$desertSand, 1);
+
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: none;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: transparentize(var.$desertSand, 0.5);
+		border-radius: 2px;
+	}
+
 	figure {
 		border: 8px solid var.$linen;
 		border-radius: 4px;
@@ -116,6 +134,14 @@ $repeat: 30;
 	p {
 		margin-top: 16px;
 	}
+}
+
+.close-btn {
+	width: 2rem;
+	position: absolute;
+	top: 1.2rem;
+	right: 1.2rem;
+	cursor: pointer;
 }
 
 @media only screen and (min-width: 1068px) {

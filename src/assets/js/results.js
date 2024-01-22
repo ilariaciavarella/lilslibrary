@@ -4,6 +4,8 @@ import _ from 'lodash';
 
 import '../scss/results.scss';
 
+import CloseIcon from '../imgs/icons/close.svg';
+
 // GRAB STORAGE DATA
 const chosenGenre = localStorage.getItem('chosenGenre');
 const fetchUrl = localStorage.getItem('fetchUrl');
@@ -74,13 +76,25 @@ function createDetails({ title, authors, description }, coverId) {
 
     plotElement.textContent = description || '[Sorry! We have no details about this book]';
 
-    document.querySelector('body').appendChild(detailsBox);
-    document.querySelector('body').classList.toggle('details-bg');
+    createCloseBtn(detailsBox);
+
+    document.body.appendChild(detailsBox);
+    document.body.classList.toggle('details-bg');
 
     // avoid grid resizing when hiding overflow
     const documentWidth = document.documentElement.clientWidth;
     const scrollbarWidth = Math.abs(window.innerWidth - documentWidth);
     document.body.style.paddingRight = `${scrollbarWidth}px`;
+}
+
+// Create close icon
+function createCloseBtn(box) {
+    const closeBtn = box.querySelector('.close-btn')
+    closeBtn.setAttribute('src', CloseIcon);
+    closeBtn.addEventListener('click', () => {
+        document.body.removeChild(box);
+        document.body.classList.toggle('details-bg');
+    })
 }
 
 // Display them
