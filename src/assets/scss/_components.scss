@@ -71,7 +71,7 @@ $repeat: 30;
 }
 
 /* DETAILS CARD ----------------------------------------------*/
-.details-overlay {
+.dark-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -160,5 +160,24 @@ $repeat: 30;
 	.details-box {
 		max-width: 60%;
 		max-height: 80%;
+	}
+}
+
+/* Error popup ----------------------------------------------*/
+.error-box {
+	width: 100%;
+	height: max-content;
+	padding: 4rem;
+	border-radius: 12px;
+	box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.25);
+	backdrop-filter: blur(16px) brightness(70%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: var.$linen;
+	text-align: center;
+
+	a {
+		color: var.$atomicTangerine;
 	}
 }

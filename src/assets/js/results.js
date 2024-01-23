@@ -73,6 +73,7 @@ function createDetails({ title, authors, description }, coverId) {
     })
 
     coverElement.setAttribute('src', `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`);
+    coverElement.setAttribute('alt', `Cover of the book: ${title}`);
 
     plotElement.textContent = typeof description == 'string' ? description : typeof description == 'object' ? description.value : '[Sorry! We have no details about this book]';
 
@@ -111,6 +112,25 @@ function displayDetails() {
     })
 };
 
+// ERROR POP UP
+function errorPopup(err) {
+    const overlay = document.createElement('div');
+    overlay.classList.add('dark-overlay');
+
+    const popup = document.createElement('div');
+    popup.classList.add('error-box');
+    overlay.appendChild(popup);
+
+    const msgHeader = document.createElement('h2');
+    const msg = document.createElement('p');
+    msgHeader.textContent = "Ops! Something went wrong"
+    msg.innerHTML = `Sorry, a ${err.message} occurred. Return to the <a href="../../">Home Page</a> and try again!`
+    popup.appendChild(msgHeader);
+    popup.appendChild(msg);
+
+    document.body.appendChild(overlay);
+}
+
 
 // Make request
 axios.get(fetchUrl)
@@ -119,4 +139,8 @@ axios.get(fetchUrl)
         console.log(bookData);
         _.forEach(bookData.works, worksToBooks);
         displayDetails();
+    })
+    .catch(e => {
+        console.error(e);
+        errorPopup(e);
     });
