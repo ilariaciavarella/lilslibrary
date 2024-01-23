@@ -26,7 +26,14 @@ genre.classList.add('non-italic');
 headerOne.appendChild(genre);
 
 // Display always different sentences in h2
+let headerOptions = ['I would have done the same choice! Here is what we have:',
+    'Nice one! Take a look at these books:',
+    'You have great taste! You will like these titles:',
+    'I like this one! Let me show you what we have:'];
 
+let index = Math.floor(Math.random() * 4);
+
+headerTwo.textContent = headerOptions[index];
 
 // Display books
 function worksToBooks({ key, title, authors, cover_id }) {
@@ -156,7 +163,9 @@ axios.get(fetchUrl)
     .then(res => {
         let bookData = res.data;
         console.log(bookData);
-
+        if (bookData.works.length == 0) {
+            headerTwo.innerHTML = 'Sorry! We have no books for the genre you chose. <a href="../../">Try another research</a>'
+        }
         _.forEach(bookData.works, worksToBooks);
         displayDetails();
         removeLoad();
