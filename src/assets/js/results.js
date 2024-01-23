@@ -5,18 +5,19 @@ import _ from 'lodash';
 import '../scss/results.scss';
 
 import CloseIcon from '../imgs/icons/close.svg';
+import LoadGif from '../imgs/icons/loading.gif';
 
 // GRAB STORAGE DATA
 const chosenGenre = localStorage.getItem('chosenGenre');
 const fetchUrl = localStorage.getItem('fetchUrl');
 
+// BASICS ------------------------------------------------------------------------------------
 // Grab page elements
 const headerOne = document.querySelector('h1');
 const headerTwo = document.querySelector('h2');
 const bookCollection = document.querySelector('.collection');
 const bookTemplate = document.querySelector('[data-book-template]');
 const detailsTemplate = document.querySelector('[data-details-template]');
-
 
 // Display genre name as header
 let genre = document.createElement('span');
@@ -27,7 +28,7 @@ headerOne.appendChild(genre);
 // Display always different sentences in h2
 
 
-//Display books
+// Display books
 function worksToBooks({ key, title, authors, cover_id }) {
     const book = bookTemplate.content.cloneNode('true').children[0];
     const titleElement = book.querySelector('.title');
@@ -49,7 +50,23 @@ function worksToBooks({ key, title, authors, cover_id }) {
     bookCollection.append(book);
 }
 
-// DISPLAY DETAILS
+// Loading
+function loading() {
+    const loadImg = document.createElement('img');
+    const loadBox = document.createElement('div');
+    loadImg.setAttribute('src', LoadGif);
+    loadImg.classList.add('load-gif');
+    loadBox.classList.add('load-box');
+    loadBox.appendChild(loadImg);
+    document.querySelector('main').appendChild(loadBox);
+}
+
+function removeLoad() {
+    const loadBox = document.querySelector('.load-box');
+    document.querySelector('main').removeChild(loadBox);
+}
+
+// DISPLAY DETAILS ---------------------------------------------------------------------------
 // Create details element
 function createDetails({ title, authors, description }, coverId) {
     const detailsBox = detailsTemplate.content.cloneNode('true').children[0];
@@ -112,7 +129,7 @@ function displayDetails() {
     })
 };
 
-// ERROR POP UP
+// ERROR POP UP ------------------------------------------------------------------------------
 function errorPopup(err) {
     const overlay = document.createElement('div');
     overlay.classList.add('dark-overlay');
@@ -124,7 +141,7 @@ function errorPopup(err) {
     const msgHeader = document.createElement('h2');
     const msg = document.createElement('p');
     msgHeader.textContent = "Ops! Something went wrong"
-    msg.innerHTML = `Sorry, a ${err.message} occurred. Return to the <a href="../../">Home Page</a> and try again!`
+    msg.innerHTML = `Sorry, the following error occurred: &ldquo;${err.message}&rdquo;. Return to the <a href="../../">Home Page</a> and try again!`
     popup.appendChild(msgHeader);
     popup.appendChild(msg);
 
@@ -132,13 +149,17 @@ function errorPopup(err) {
 }
 
 
-// Make request
+// ACTUAL REQUEST ----------------------------------------------------------------------------
+loading();
+
 axios.get(fetchUrl)
     .then(res => {
         let bookData = res.data;
         console.log(bookData);
+
         _.forEach(bookData.works, worksToBooks);
         displayDetails();
+        removeLoad();
     })
     .catch(e => {
         console.error(e);

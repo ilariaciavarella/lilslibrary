@@ -126,7 +126,6 @@ $repeat: 30;
 		border: 8px solid var.$linen;
 		border-radius: 4px;
 		max-width: 300px;
-		min-width: 30%;
 		height: fit-content;
 		overflow: hidden;
 		margin: 0 auto;
@@ -180,4 +179,15 @@ $repeat: 30;
 	a {
 		color: var.$atomicTangerine;
 	}
+}
+
+/* Loading icon ----------------------------------------------*/
+.load-gif {
+	width: 5rem;
+}
+
+.load-box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
