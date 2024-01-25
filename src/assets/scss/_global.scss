@@ -1,5 +1,5 @@
 @use "var";
-@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap");
 
 /* Reset */
 * {
@@ -9,7 +9,7 @@
 }
 
 :root {
-	font-family: "EB Garamond", serif;
+	font-family: "Cormorant Garamond", serif;
 	font-size: calc(13px + 0.390625vw);
 	color: var.$blackBean;
 }
@@ -37,11 +37,13 @@ h1 {
 
 h2 {
 	font-size: 1.25rem;
+	font-weight: normal;
 	margin-bottom: 2rem;
 }
 
 h3 {
 	font-size: 1.2rem;
+	font-weight: bold;
 }
 
 .author {
