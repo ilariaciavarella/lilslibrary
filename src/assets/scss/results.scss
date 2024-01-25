@@ -35,10 +35,11 @@ a {
 	gap: 0.25rem;
 	font-size: 1.25rem;
 	margin-top: 3rem;
+	font-variant-numeric: lining-nums;
 }
 .pages,
-#previous-page,
-#next-page {
+.previous-page,
+.next-page {
 	color: var.$blackBean;
 	cursor: pointer;
 	padding: 1rem;
@@ -50,6 +51,14 @@ a {
 
 .current-page {
 	color: var.$bittersweetShimmer;
+	cursor: auto;
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.disabled {
+	opacity: 0.5;
 	cursor: auto;
 	&:hover {
 		text-decoration: none;

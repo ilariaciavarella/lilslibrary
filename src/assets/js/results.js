@@ -164,7 +164,7 @@ function getPagesNumber({ work_count }) {
     let endPage;
 
     if (pagesNumber > 1) {
-        pagination.innerHTML += '<span id="previous-page">&lsaquo;</span>';
+        pagination.innerHTML += '<span class="previous-page">&lsaquo;</span>';
 
         if (currentPage < 3) {
             startPage = 1;
@@ -177,7 +177,7 @@ function getPagesNumber({ work_count }) {
             pagination.innerHTML += `<span class="pages">${i}</span>`;
         }
 
-        pagination.innerHTML += '<span id="next-page">&rsaquo;</span>';
+        pagination.innerHTML += '<span class="next-page">&rsaquo;</span>';
     }
 
     const pages = document.querySelectorAll('.pages');
@@ -193,24 +193,32 @@ function getPagesNumber({ work_count }) {
 
     });
 
-    const nextPage = document.querySelector('#next-page');
-    nextPage.addEventListener('click', () => {
-        let pageValue = ++currentPage;
-        console.log(pageValue)
-        localStorage.setItem('currentPage', pageValue);
-        let reg = /page=\d+/;
-        newLocation = _.replace(location.href, reg, `page=${pageValue}`)
-        location.replace(newLocation);
-    })
+    const nextPage = document.querySelector('.next-page');
+    if (currentPage != pagesNumber) {
+        nextPage.addEventListener('click', () => {
+            let pageValue = ++currentPage;
+            console.log(pageValue)
+            localStorage.setItem('currentPage', pageValue);
+            let reg = /page=\d+/;
+            newLocation = _.replace(location.href, reg, `page=${pageValue}`)
+            location.replace(newLocation);
+        })
+    } else {
+        nextPage.classList.add('disabled');
+    }
 
-    const previousPage = document.querySelector('#previous-page');
-    previousPage.addEventListener('click', () => {
-        let pageValue = --currentPage;
-        localStorage.setItem('currentPage', pageValue);
-        let reg = /page=\d+/;
-        newLocation = _.replace(location.href, reg, `page=${pageValue}`)
-        location.replace(newLocation);
-    })
+    const previousPage = document.querySelector('.previous-page');
+    if (currentPage > 1) {
+        previousPage.addEventListener('click', () => {
+            let pageValue = --currentPage;
+            localStorage.setItem('currentPage', pageValue);
+            let reg = /page=\d+/;
+            newLocation = _.replace(location.href, reg, `page=${pageValue}`)
+            location.replace(newLocation);
+        })
+    } else {
+        previousPage.classList.add('disabled');
+    }
 }
 
 function changePage(page) {
