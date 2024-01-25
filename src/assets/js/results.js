@@ -16,6 +16,7 @@ const fetchUrl = localStorage.getItem('fetchUrl');
 const headerOne = document.querySelector('h1');
 const headerTwo = document.querySelector('h2');
 const bookCollection = document.querySelector('.collection');
+const pagination = document.querySelector('.pagination');
 const bookTemplate = document.querySelector('[data-book-template]');
 const detailsTemplate = document.querySelector('[data-details-template]');
 
@@ -155,20 +156,94 @@ function errorPopup(err) {
     document.body.appendChild(overlay);
 }
 
+// PAGINATION --------------------------------------------------------------------------------
+function getPagesNumber({ work_count }) {
+    const pagesNumber = _.ceil(work_count / 60);
+    const maxPages = 5;
+    let startPage;
+    let endPage;
+
+    if (pagesNumber > 1) {
+        pagination.innerHTML += '<span id="previous-page">&lsaquo;</span>';
+
+        if (currentPage < 3) {
+            startPage = 1;
+            endPage = maxPages;
+        } else {
+            startPage = currentPage - Math.floor(maxPages / 2);
+            endPage = currentPage + Math.floor(maxPages / 2);
+        }
+        for (let i = startPage; i <= endPage; i++) {
+            pagination.innerHTML += `<span class="pages">${i}</span>`;
+        }
+
+        pagination.innerHTML += '<span id="next-page">&rsaquo;</span>';
+    }
+
+    const pages = document.querySelectorAll('.pages');
+    _.forEach(pages, page => {
+        if (page.textContent == currentPage) {
+            page.classList.add('current-page')
+        } else {
+            page.addEventListener('click', () => {
+                changePage(page);
+                location.replace(newLocation);
+            })
+        }
+
+    });
+
+    const nextPage = document.querySelector('#next-page');
+    nextPage.addEventListener('click', () => {
+        let pageValue = ++currentPage;
+        console.log(pageValue)
+        localStorage.setItem('currentPage', pageValue);
+        let reg = /page=\d+/;
+        newLocation = _.replace(location.href, reg, `page=${pageValue}`)
+        location.replace(newLocation);
+    })
+
+    const previousPage = document.querySelector('#previous-page');
+    previousPage.addEventListener('click', () => {
+        let pageValue = --currentPage;
+        localStorage.setItem('currentPage', pageValue);
+        let reg = /page=\d+/;
+        newLocation = _.replace(location.href, reg, `page=${pageValue}`)
+        location.replace(newLocation);
+    })
+}
+
+function changePage(page) {
+    let pageValue = page.textContent;
+    localStorage.setItem('currentPage', pageValue);
+    let reg = /page=\d+/;
+    newLocation = _.replace(location.href, reg, `page=${pageValue}`)
+}
 
 // ACTUAL REQUEST ----------------------------------------------------------------------------
+let currentPage = Number(localStorage.getItem('currentPage')) || 1;
+let limit = 60;
+let newLocation;
+
 loading();
 
-axios.get(fetchUrl)
+axios.get(fetchUrl, {
+    params: {
+        limit: limit,
+        offset: (limit * (currentPage - 1)),
+    }
+})
     .then(res => {
         let bookData = res.data;
-        console.log(bookData);
         if (bookData.works.length == 0) {
             headerTwo.innerHTML = 'Sorry! We have no books for the genre you chose. <a href="../../">Try another research</a>'
         }
         _.forEach(bookData.works, worksToBooks);
+
         displayDetails();
         removeLoad();
+
+        getPagesNumber(bookData);
     })
     .catch(e => {
         console.error(e);

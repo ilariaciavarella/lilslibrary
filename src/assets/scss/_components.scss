@@ -28,7 +28,7 @@
 $colours: url("../imgs/books/book-atomicTangerine.svg"),
 	url("../imgs/books/book-blackBean.svg"),
 	url("../imgs/books/book-bittersweetShimmer.svg");
-$repeat: 30;
+$repeat: 60;
 @for $i from 1 through $repeat {
 	.book:nth-child(#{length($colours)}n + #{$i}) {
 		background-image: nth($colours, random(length($colours)));

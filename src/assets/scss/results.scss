@@ -29,6 +29,33 @@ a {
 	gap: 40px;
 }
 
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: 0.25rem;
+	font-size: 1.25rem;
+	margin-top: 3rem;
+}
+.pages,
+#previous-page,
+#next-page {
+	color: var.$blackBean;
+	cursor: pointer;
+	padding: 1rem;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.current-page {
+	color: var.$bittersweetShimmer;
+	cursor: auto;
+	&:hover {
+		text-decoration: none;
+	}
+}
+
 /* Styles to add */
 .non-italic {
 	font-style: normal;
