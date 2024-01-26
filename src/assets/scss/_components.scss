@@ -82,7 +82,6 @@ $repeat: 60;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 2rem;
 }
 
 .details-box {
@@ -94,6 +93,7 @@ $repeat: 60;
 	backdrop-filter: blur(16px) brightness(70%);
 	-webkit-backdrop-filter: blur(16px) brightness(70%);
 	overflow: hidden;
+	position: relative;
 }
 
 .info {
@@ -142,6 +142,8 @@ $repeat: 60;
 .details-text {
 	flex: 2 1 50%;
 	color: var.$linen;
+	overflow-x: hidden;
+	overflow-wrap: break-word;
 
 	p {
 		margin-top: 24px;
@@ -156,7 +158,11 @@ $repeat: 60;
 	cursor: pointer;
 }
 
-@media only screen and (min-width: 1068px) {
+@media only screen and (min-width: 721px) {
+	.dark-overlay {
+		padding: 2rem;
+	}
+
 	.details-box {
 		max-width: 60%;
 		max-height: 80%;
