@@ -47,6 +47,8 @@ footer {
 	input {
 		flex-grow: 1;
 		background-color: var.$linen;
+		font-size: calc(15px + 0.390625vw);
+		font-family: "Cormorant Garamond", serif;
 
 		&:focus {
 			outline: none;
