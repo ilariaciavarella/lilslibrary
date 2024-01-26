@@ -194,30 +194,34 @@ function getPagesNumber({ work_count }) {
     });
 
     const nextPage = document.querySelector('.next-page');
-    if (currentPage != pagesNumber) {
-        nextPage.addEventListener('click', () => {
-            let pageValue = ++currentPage;
-            console.log(pageValue)
-            localStorage.setItem('currentPage', pageValue);
-            let reg = /page=\d+/;
-            newLocation = _.replace(location.href, reg, `page=${pageValue}`)
-            location.replace(newLocation);
-        })
-    } else {
-        nextPage.classList.add('disabled');
+    if (nextPage) {
+        if (currentPage != pagesNumber) {
+            nextPage.addEventListener('click', () => {
+                let pageValue = ++currentPage;
+                console.log(pageValue);
+                localStorage.setItem('currentPage', pageValue);
+                let reg = /page=\d+/;
+                newLocation = _.replace(location.href, reg, `page=${pageValue}`)
+                location.replace(newLocation);
+            })
+        } else {
+            nextPage.classList.add('disabled');
+        }
     }
 
     const previousPage = document.querySelector('.previous-page');
-    if (currentPage > 1) {
-        previousPage.addEventListener('click', () => {
-            let pageValue = --currentPage;
-            localStorage.setItem('currentPage', pageValue);
-            let reg = /page=\d+/;
-            newLocation = _.replace(location.href, reg, `page=${pageValue}`)
-            location.replace(newLocation);
-        })
-    } else {
-        previousPage.classList.add('disabled');
+    if (previousPage) {
+        if (currentPage > 1) {
+            previousPage.addEventListener('click', () => {
+                let pageValue = --currentPage;
+                localStorage.setItem('currentPage', pageValue);
+                let reg = /page=\d+/;
+                newLocation = _.replace(location.href, reg, `page=${pageValue}`)
+                location.replace(newLocation);
+            })
+        } else {
+            previousPage.classList.add('disabled');
+        }
     }
 }
 

@@ -25,10 +25,6 @@ submitBtn.addEventListener('click', (e) => {
     }
 })
 
-searchInput.addEventListener('click', (e) => {
-    e.preventDefault();
-})
-
 searchInput.addEventListener('focus', () => {
     searchInput.removeAttribute('style');
     searchInput.setAttribute('placeholder', 'Search');
