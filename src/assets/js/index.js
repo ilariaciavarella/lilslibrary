@@ -10,13 +10,13 @@ const searchInput = document.querySelector('#search-input');
 
 // Convert to url
 function getUrl(userInput) {
-    return `${process.env.OPEN_LIBRARY}${userInput.toLowerCase().split(' ').join('_')}.json`;
+    return `${process.env.OPEN_LIBRARY}${userInput.toLowerCase().trim().split(' ').join('_')}.json`;
 }
 
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (searchInput.value.length > 0) {
-        localStorage.setItem("chosenGenre", searchInput.value.toLowerCase());
+        localStorage.setItem("chosenGenre", searchInput.value.toLowerCase().trim());
         localStorage.setItem("fetchUrl", getUrl(searchInput.value));
         window.location.replace(`results.html?search=${localStorage.getItem('chosenGenre')}&page=1`);
     } else {
