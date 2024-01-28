@@ -32,11 +32,20 @@ a {
 .pagination {
 	display: flex;
 	justify-content: center;
-	gap: 0.25rem;
+	align-items: center;
+	gap: 0.15rem;
 	font-size: 1.25rem;
 	margin-top: 3rem;
 	font-variant-numeric: lining-nums;
 }
+
+.all-pages {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	column-gap: 0.15rem;
+}
+
 .pages,
 .previous-page,
 .next-page {

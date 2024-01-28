@@ -171,6 +171,8 @@ function getPagesNumber({ work_count }) {
 
     if (pagesNumber > 1) {
         pagination.innerHTML += '<span class="previous-page">&lsaquo;</span>';
+        const allPages = document.createElement('div');
+        allPages.classList.add('all-pages');
 
         if (currentPage < 3) {
             startPage = 1;
@@ -180,9 +182,10 @@ function getPagesNumber({ work_count }) {
             endPage = currentPage + Math.floor(maxPages / 2);
         }
         for (let i = startPage; i <= endPage; i++) {
-            pagination.innerHTML += `<span class="pages">${i}</span>`;
+            allPages.innerHTML += `<span class="pages">${i}</span>`;
         }
 
+        pagination.appendChild(allPages);
         pagination.innerHTML += '<span class="next-page">&rsaquo;</span>';
     }
 
