@@ -27,20 +27,22 @@ genre.classList.add('non-italic');
 headerOne.appendChild(genre);
 
 // Display always different sentences in h2
-let headerOptions = ['I would have done the same choice! Here is what we have:',
-    'Nice one! Take a look at these books:',
-    'You have great taste! You will like these titles:',
-    'I like this one! Let me show you what we have:',
-    'Splendid selection! Let me reveal our assortment of books:',
-    'Good choice! These are the titles we have:',
-    'Fantastic pick! Allow me to unveil our collection:',
-    'Terrific decision! Witness the breadth of our library:',
-    'Wonderful choice! Prepare to discover our captivating titles:',
-    'Brilliant pick! Explore the enchanting books we have:',
-];
+function randomHeader() {
+    let headerOptions = ['I would have done the same choice! Here is what we have:',
+        'Nice one! Take a look at these books:',
+        'You have great taste! You will like these titles:',
+        'I like this one! Let me show you what we have:',
+        'Splendid selection! Let me reveal our assortment of books:',
+        'Good choice! These are the titles we have:',
+        'Fantastic pick! Allow me to unveil our collection:',
+        'Terrific decision! Witness the breadth of our library:',
+        'Wonderful choice! Prepare to discover our captivating titles:',
+        'Brilliant pick! Explore the enchanting books we have:',
+    ];
 
-let index = Math.floor(Math.random() * headerOptions.length);
-headerTwo.textContent = headerOptions[index];
+    let index = Math.floor(Math.random() * headerOptions.length);
+    headerTwo.textContent = headerOptions[index];
+}
 
 // Display books
 function worksToBooks({ key, title, authors, cover_id }) {
@@ -263,6 +265,8 @@ axios.get(fetchUrl, {
         let bookData = res.data;
         if (bookData.works.length == 0) {
             headerTwo.innerHTML = 'Sorry! We have no books for the genre you chose. <a href="../../">Try another research</a>'
+        } else {
+            randomHeader();
         }
         _.forEach(bookData.works, worksToBooks);
 
