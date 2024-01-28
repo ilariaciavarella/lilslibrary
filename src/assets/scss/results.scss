@@ -81,6 +81,8 @@ a {
 
 .details-bg {
 	height: 100vh;
+	// add measure for safari compatibility
+	height: 100dvh;
 	overflow: hidden;
 }
 

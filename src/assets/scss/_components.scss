@@ -77,6 +77,8 @@ $repeat: 30;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
+	// add measure for safari compatibility
+	height: 100dvh;
 	z-index: 10;
 	background-color: transparentize(var.$blackBean, 0.2);
 	display: flex;
