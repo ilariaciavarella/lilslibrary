@@ -112,6 +112,7 @@ function createDetails({ title, authors, description }, coverId) {
 
     document.body.appendChild(detailsBox);
     document.body.classList.toggle('details-bg');
+    document.querySelector('html').classList.toggle('details-bg');
 
     // avoid grid resizing when hiding overflow
     const documentWidth = document.documentElement.clientWidth;
@@ -126,6 +127,7 @@ function createCloseBtn(box) {
     closeBtn.addEventListener('click', () => {
         document.body.removeChild(box);
         document.body.classList.toggle('details-bg');
+        document.querySelector('html').classList.toggle('details-bg');
     })
 }
 
